@@ -36,12 +36,7 @@ with open('input.txt', 'r') as file:
             else:
                 i += 1
 
-        red = games['red'] - 12
-        green = games['green'] - 13
-        blue = games['blue'] - 14
-
-        if red < 1 and green < 1 and blue < 1:
-            total += id
+        total += games['red'] * games['green'] * games['blue']
 
         line = file.readline()
     print(total)
