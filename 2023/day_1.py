@@ -7,9 +7,9 @@ with open('input.txt', 'r') as file:
 
     while line:
         l = 0
-        r = len(line) - 2
+        r = len(line) - 1
 
-        while l < len(line) - 2:
+        while l < len(line) - 1:
             if line[l].isdigit():
                 l = line[l]
                 break
@@ -28,7 +28,7 @@ with open('input.txt', 'r') as file:
 
             l += 1
 
-        while r > 0:
+        while r >= 0:
             if line[r].isdigit():
                 r = line[r]
                 break
@@ -47,7 +47,6 @@ with open('input.txt', 'r') as file:
 
             r -= 1
 
-        print(r)
         total_sum += int(l + r)
         line = file.readline()
 
