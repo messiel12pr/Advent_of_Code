@@ -1,7 +1,4 @@
 
-import time
-
-
 def part_a():
     with open('input.txt', 'r') as file:
         input = file.read().splitlines()
@@ -25,38 +22,40 @@ def part_a():
     print(total_points)
 
 
-def calculate_depth_scratchcard(depths_map, map, card):
+def calculate_depth_card(depth_cards, cards_matching_nums, card):
     stack = [card]
 
     counter = 0
     while stack:
         curr_card = stack.pop()
 
-        if curr_card in depths_map:
-            counter += depths_map[curr_card]
+        if curr_card in depth_cards:
+            counter += depth_cards[curr_card]
+
         else:
-            for i in range(1, map[curr_card] + 1):
-                if curr_card + i in map:
+            for i in range(1, cards_matching_nums[curr_card] + 1):
+                if curr_card + i in cards_matching_nums:
                     stack.append(curr_card + i)
                     counter += 1
 
-    depths_map[card] = counter
+    depth_cards[card] = counter
     return counter
 
 
-def calculate_total_scratchcards(scratchcards_values):
-    depths_map = {}
+def calculate_total_cards(cards_matching_nums):
+    depth_cards = {}
     total_depth = 0
-    for i in scratchcards_values:
-        total_depth += calculate_depth_scratchcard(
-            depths_map, scratchcards_values, i)
-    return total_depth + len(scratchcards_values)
+    for i in range(len(cards_matching_nums), 0, -1):
+        total_depth += calculate_depth_card(
+            depth_cards, cards_matching_nums, i)
+
+    return total_depth + len(cards_matching_nums)
 
 
 def part_b():
     with open('input.txt', 'r') as file:
         input = file.read().splitlines()
-        scratchcards_values = {}
+        cards_matching_nums = {}
 
         for i, line in enumerate(input, 1):
             nums, winning_nums = line.split(': ')[1].split(' | ')
@@ -68,9 +67,9 @@ def part_b():
                 if num != '' and num in winning_nums:
                     matching_nums += 1
 
-            scratchcards_values[i] = matching_nums
+            cards_matching_nums[i] = matching_nums
 
-        print(calculate_total_scratchcards(scratchcards_values))
+        print(calculate_total_cards(cards_matching_nums))
 
 
 part_b()
