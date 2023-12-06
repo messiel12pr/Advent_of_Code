@@ -19,6 +19,19 @@ def part_a():
         
         print(total_wins)
 
+def part_b():
+    with open('input.txt', 'r') as file:
+        input = file.read().splitlines()
+        time = int(''.join(input[0].split(': ')[1].strip().split()))
+        distance = int(''.join(input[1].split(': ')[1].strip().split()))
+        total_wins = 1
+
+        min_hold_time = calculate_min_hold_time(time, distance)
+        max_hold_time = time - min_hold_time
+        total_wins *=  max_hold_time - min_hold_time + 1
+        
+        print(total_wins)
 
 
 part_a()
+part_b()
