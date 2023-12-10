@@ -28,25 +28,26 @@ def part_a():
         grid = [list(line) for line in input]
         start = find_coord_S(grid)
         visited = set(start)
-        stack = [start]
+        next_pipe = start
         steps = 0
 
-        while stack:
-            curr_pipe = stack.pop()
+        while next_pipe != (-1, -1):
+            curr_pipe = next_pipe
             
             for dir in directions[grid[curr_pipe[0]][curr_pipe[1]]]:
                 r, c = dir
+                adj_r, adj_c = r + curr_pipe[0], c + curr_pipe[1]
 
-                if r+curr_pipe[0] not in range(len(grid)) or c+curr_pipe[1] not in range(len(grid[0])):
+                if adj_r not in range(len(grid)) or adj_c not in range(len(grid[0])):
                     continue
                 
-                if grid[r+curr_pipe[0]][c+curr_pipe[1]] == 'S' and len(visited) > 2:
-                    stack.clear()
+                if grid[adj_r][adj_c] == 'S' and len(visited) > 1:
+                    next_pipe = (-1, -1)
                     break
                 
-                if grid[r+curr_pipe[0]][c+curr_pipe[1]] in connecting[(r, c)] and (r+curr_pipe[0], c+curr_pipe[1]) not in visited:
-                    stack.append((r+curr_pipe[0], c+curr_pipe[1]))
-                    visited.add((r+curr_pipe[0], c+curr_pipe[1]))
+                if grid[adj_r][adj_c] in connecting[(r, c)] and (adj_r, adj_c) not in visited:
+                    next_pipe = (adj_r, adj_c)
+                    visited.add((adj_r, adj_c))
                     steps += 1
                     break
 
