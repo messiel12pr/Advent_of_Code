@@ -1,5 +1,11 @@
-
-from functools import reduce
+def display_grid(grid, visited):
+    for r in range(len(grid)):
+        for c in range(len(grid[0])):
+            if (r, c) in visited:
+                print('0', end=' ')
+            else:
+                print(grid[r][c], end=' ')
+        print()
 
 def find_coord_S(grid):
     for r in range(len(grid)):
@@ -31,23 +37,23 @@ def part_a():
         next_pipe = start
         steps = 0
 
-        while next_pipe != (-1, -1):
+        while next_pipe != None:
             curr_pipe = next_pipe
             
             for dir in directions[grid[curr_pipe[0]][curr_pipe[1]]]:
                 r, c = dir
-                adj_r, adj_c = r + curr_pipe[0], c + curr_pipe[1]
+                adc_r, adj_c = r+curr_pipe[0], c+curr_pipe[1]
 
-                if adj_r not in range(len(grid)) or adj_c not in range(len(grid[0])):
+                if adc_r not in range(len(grid)) or adj_c not in range(len(grid[0])):
                     continue
                 
-                if grid[adj_r][adj_c] == 'S' and len(visited) > 1:
-                    next_pipe = (-1, -1)
+                if grid[adc_r][adj_c] == 'S' and len(visited) > 2:
+                    next_pipe = None
                     break
                 
-                if grid[adj_r][adj_c] in connecting[(r, c)] and (adj_r, adj_c) not in visited:
-                    next_pipe = (adj_r, adj_c)
-                    visited.add((adj_r, adj_c))
+                if grid[adc_r][adj_c] in connecting[(r, c)] and (adc_r, adj_c) not in visited:
+                    next_pipe = (adc_r, adj_c)
+                    visited.add((adc_r, adj_c))
                     steps += 1
                     break
 
