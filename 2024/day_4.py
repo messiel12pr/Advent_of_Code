@@ -34,7 +34,15 @@ def search(row, col):
 
 
 def search2(row, col):
-    pass
+    row2 = row + 2
+    col2 = col + 2
+
+    if row2 in range(len(data)) and col2 in range(len(data[0])):
+        if (data[row][col] == 'M' and data[row2][col2] == 'S' or data[row][col] == 'S' and data[row2][col2] == 'M') and \
+        (data[row][col2] == 'M' and data[row2][col] == 'S' or data[row][col2] == 'S' and data[row2][col] == 'M') and data[row + 1][col + 1] == 'A':
+            return 1
+
+    return 0
 
 
 def part_1():
@@ -51,7 +59,7 @@ def part_2():
     res = 0
     for row in range(len(data)):
         for col in range(len(data[0])):
-            if data[row][col] == 'X':
+            if data[row][col] == 'M' or data[row][col] == 'S':
                 res += search2(row, col)
 
     print(res)
