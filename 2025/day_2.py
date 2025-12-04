@@ -20,14 +20,13 @@ def part_2():
 
     for case in test_cases:
         lower, upper = map(int, case.split('-'))
-        repeated = set()
-
         for num in range(lower, upper + 1):
             str_num = str(num)
+
             for i in range(1, (len(str_num)//2) + 1):
-                if str_num[:i] * (len(str_num)//i) == str_num and num not in repeated:
+                if str_num[:i] * (len(str_num)//i) == str_num:
                     res += num
-                    repeated.add(num)
+                    break
     return res
 
 #print(part_1())
