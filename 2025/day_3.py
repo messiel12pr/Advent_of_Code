@@ -28,32 +28,37 @@ def part_2():
 
     while line:
         ctr = 0
-        l = 0
-        r = len(line) - 1
-        turned_on = [False] * len(line)
+        turned_on = [0] * len(line)
 
-        while l < r and ctr != 12:
-            if line[l] > line[r]:
-                turned_on[l] = True
-                l += 1
-                ctr += 1
+        for i in range(9, 0, -1):
+            if ctr == 12:
+                break
 
-            elif line[r] > line[l]:
-                turned_on[r] = True
-                r -= 1
-                ctr += 1
+            for j in range(len(line)):
+                if ctr == 12:
+                    break
 
-            else:
-                l += 1
-                r -= 1
+                if line[j] == i and not turned_on[j]:
+                    turned_on[j] = 1
+                    ctr += 1
 
-        curr_jolt = []
-        for i in range(len(turned_on)):
-            if turned_on[i]:
-                curr_jolt.append(line[i])
+        ctr = 0
+        turned_on_reversed = [0] * len(line)
+        for i in range(9, 0, -1):
+            if ctr == 12:
+                break
 
-            else:
-                curr_jolt.append(0)
+            for j in range(len(line)-1, -1, -1):
+                if ctr == 12:
+                    break
+
+                if line[j] == i and not turned_on_reversed[j]:
+                    turned_on_reversed[j] = 1
+                    ctr += 1
+        
+        print(turned_on)
+        print(turned_on_reversed)
+        print()
 
         #total_jolt += 
         line = list(map(int, sys.stdin.readline().strip()))

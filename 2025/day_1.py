@@ -31,6 +31,7 @@ def part_2():
     line = sys.stdin.readline().strip()
     while line:
         direction, distance = line[0], int(line[1:])
+        prev_dial = dial
 
         if direction == 'L':
             dial -= distance
@@ -38,11 +39,19 @@ def part_2():
         else:
             dial += distance
 
-        if dial in range(-99, 1, 1):
-            res += 1
+        
+        if distance > 100:
+            if dial < 0:
+                res += (distance + prev_dial) // 100
+
+            else:
+                res += dial // 100
 
         else:
-            res += abs(dial)//100
+            if dial == 0 or (prev_dial > 0 and dial < 0) or dial >= 100:
+                res += 1
+        
+        #print(prev_dial, dial, distance, res)
 
         dial = dial % 100
         line = sys.stdin.readline().strip()
